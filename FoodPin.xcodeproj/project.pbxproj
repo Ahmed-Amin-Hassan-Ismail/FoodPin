@@ -53,10 +53,10 @@
 		5361AC72284BE25000203D51 /* FoodPin */ = {
 			isa = PBXGroup;
 			children = (
-				5389A526284BF36E00D0DB47 /* Model */,
 				5361AC73284BE25000203D51 /* FoodPinApp.swift */,
-				5361AC75284BE25000203D51 /* RestaurantListView.swift */,
-				5361AC77284BE25200203D51 /* Assets.xcassets */,
+				5389A526284BF36E00D0DB47 /* Model */,
+				538B66F7284C34F600B22A54 /* View */,
+				538B66F8284C34FD00B22A54 /* Resources */,
 				5361AC79284BE25200203D51 /* Preview Content */,
 			);
 			path = FoodPin;
@@ -76,6 +76,22 @@
 				5389A527284BF37600D0DB47 /* Restaurant.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		538B66F7284C34F600B22A54 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5361AC75284BE25000203D51 /* RestaurantListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		538B66F8284C34FD00B22A54 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5361AC77284BE25200203D51 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
