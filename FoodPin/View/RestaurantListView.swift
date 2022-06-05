@@ -41,9 +41,23 @@ struct RestaurantListView: View {
         List {
             ForEach(restaurants.indices, id: \.self) { index in
                 BasicTextImageRow(restaurant: $restaurants[index])
-                
-                //FullImageRow(restaurant: $restaurants[index])
-                
+                    .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "heart")
+                        }
+                        .tint(Color.green)
+                        
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
+                        }
+                        .tint(Color.orange)
+
+
+                    }
             }
             .listRowSeparator(.hidden)
         }
@@ -84,28 +98,47 @@ struct BasicTextImageRow: View {
                     .foregroundColor(.yellow)
             }
         }
-        .onTapGesture {
-            self.showOptions.toggle()
-        }
-        
-        .actionSheet(isPresented: $showOptions) {
-            ActionSheet(title: Text("What do you want to do?"),
-                        message: nil,
-                        buttons: [
-                            .default(Text("Reserve Table"), action: {
-                                self.showError.toggle()
-                            }),
-                            .default(Text("Mark as favorite"), action: {
-                                self.restaurant.isFavorite.toggle()
-                            }),
-                            .cancel()
-                        ])
+        .contextMenu {
+            Button {
+                self.showError.toggle()
+            } label: {
+                HStack {
+                    Text("Reverse a table")
+                    Image(systemName: "phone")
+                }
+            }
+            
+            Button {
+                self.restaurant.isFavorite.toggle()
+            } label: {
+                HStack {
+                    Text(restaurant.isFavorite ? "Remove from favorites" : "Mark as a favorite")
+                    Image(systemName: "heart")
+                }
+            }
+            
+            Button {
+                self.showOptions.toggle()
+            } label: {
+                HStack {
+                    Text("Share")
+                    Image(systemName: "square.and.arrow.up")
+                }
+            }
         }
         .alert(isPresented: $showError) {
             Alert(title: Text("Not yet available"),
                   message: Text("sorry, this feature is not available yet, please retry later."),
                   primaryButton: .default(Text("Ok")),
                   secondaryButton: .cancel())
+        }
+        .sheet(isPresented: $showOptions) {
+            let defaultText = "Just checking in at \(restaurant.name)"
+            if let imageToShare = UIImage(named: restaurant.image) {
+                ActivityView(activityItems: [defaultText, imageToShare], applicationActivities: nil)
+            } else {
+                ActivityView(activityItems: [defaultText], applicationActivities: nil)
+            }
         }
     }
 }
@@ -181,5 +214,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         RestaurantListView()
             .preferredColorScheme(.light)
+            .previewDevice(PreviewDevice(rawValue: "iPhone 11"))
+            .previewDisplayName("iPhone 11")
     }
 }
