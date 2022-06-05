@@ -38,30 +38,27 @@ struct RestaurantListView: View {
     
     //MARK: - Body
     var body: some View {
-        List {
-            ForEach(restaurants.indices, id: \.self) { index in
-                BasicTextImageRow(restaurant: $restaurants[index])
-                    .swipeActions(edge: .leading, allowsFullSwipe: false) {
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "heart")
+        NavigationView {
+            List {
+                ForEach(restaurants.indices, id: \.self) { index in
+                    ZStack(alignment: .leading) {
+                        NavigationLink(destination: RestaurantDetailView(restaurant: restaurants[index])) {
+                            EmptyView()
                         }
-                        .tint(Color.green)
-                        
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "square.and.arrow.up")
-                        }
-                        .tint(Color.orange)
-
-
+                        .opacity(0)
+                        BasicTextImageRow(restaurant: $restaurants[index])
                     }
+                }
+                .onDelete(perform: { indexSet in
+                    restaurants.remove(atOffsets: indexSet)
+                })
+                .listRowSeparator(.hidden)
             }
-            .listRowSeparator(.hidden)
+            .listStyle(.plain)
+            .navigationTitle("Restaurant")
+            .navigationBarTitleDisplayMode(.automatic)
         }
-        .listStyle(.plain)
+        .accentColor(.white)
     }
 }
 
