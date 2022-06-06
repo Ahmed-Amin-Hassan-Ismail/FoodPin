@@ -11,49 +11,85 @@ struct RestaurantDetailView: View {
     // MARK: - Variables
     var restaurant: Restaurant
     @Environment(\.dismiss) var dismiss
-    //@Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        ZStack(alignment: .top) {
-            Image(restaurant.image)
-                .resizable()
-                .scaledToFill()
-                .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-                .ignoresSafeArea()
-            
-            Color.black
-                .frame(height: 100, alignment: .center)
-                .opacity(0.8)
-                .cornerRadius(20)
-                .padding()
-                .overlay(
-                    VStack(alignment: .center, spacing: 5) {
-                        Text(restaurant.name)
-                        Text(restaurant.type)
-                        Text(restaurant.location)
+        ScrollView {
+            VStack {
+                Image(restaurant.image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                    .frame(height: 445, alignment: .center)
+                    .overlay(
+                    VStack {
+                        Image(systemName: restaurant.isFavorite ? "heart.fill" : "heart")
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight:0, maxHeight: .infinity, alignment: .topTrailing)
+                            .padding()
+                            .font(.system(size: 35))
+                            .foregroundColor(restaurant.isFavorite ? .yellow : .white)
+                            .padding(.top, 40)
                         
-                    }
-                        .font(.system(.headline, design: .rounded))
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text(restaurant.name)
+                                .font(.custom("Nunito-Regular", size: 35, relativeTo: .largeTitle))
+                                .bold()
+                            
+                            Text(restaurant.type)
+                                .font(.system(.headline, design: .rounded))
+                                .padding(.all, 5)
+                                .background(.black)
+                        }
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .bottomLeading)
                         .foregroundColor(.white)
+                        .padding()
+                    }
                 )
+                Text(restaurant.description)
+                    .padding()
+                
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("ADDRESS")
+                            .font(.system(.headline, design: .rounded))
+                        
+                        Text(restaurant.location)
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                    
+                    
+                    VStack(alignment: .leading) {
+                        Text("PHONE")
+                            .font(.system(.headline, design: .rounded))
+                        
+                        Text(restaurant.phone)
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                }
+                .padding(.horizontal)
+                
+            }
         }
+        .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
-                   dismiss()
+                    dismiss()
                 } label: {
-                    Text("\(Image(systemName: "chevron.left")) \(restaurant.name)")
+                    Text("\(Image(systemName: "chevron.left"))")
                 }
 
             }
         }
+
         
     }
 }
 
 struct RestaurantDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        RestaurantDetailView(restaurant: Restaurant(name: "Cafe Deadend", type: "Cafe", location: "Hong Kong", image: "cafedeadend", isFavorite: true))
+        RestaurantDetailView(restaurant: Restaurant(name: "Cafe Deadend",type: "Coffee & Tea Shop", location: "G/F, 72 Po Hing Fong, Sheung Wan, Hong Kong", phone: "232-923423", description: "Searching for great breakfast eateries and coffee? This place is for you. We open at 6:30 every morning, and close at 9 PM. We offer espresso and espresso based drink, such as capuccino, cafe latte, piccolo and many more. Come over and enjoy a great meal.", image: "cafedeadend", isFavorite: false))
+            .preferredColorScheme(.dark)
+            .accentColor(.white)
     }
 }
