@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53141F24284FA1E10036D897 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53141F23284FA1E10036D897 /* UIColor+Ext.swift */; };
 		5361AC74284BE25000203D51 /* FoodPinApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5361AC73284BE25000203D51 /* FoodPinApp.swift */; };
 		5361AC76284BE25000203D51 /* RestaurantListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5361AC75284BE25000203D51 /* RestaurantListView.swift */; };
 		5361AC78284BE25200203D51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5361AC77284BE25200203D51 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		53141F23284FA1E10036D897 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		5361AC70284BE25000203D51 /* FoodPin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodPin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5361AC73284BE25000203D51 /* FoodPinApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodPinApp.swift; sourceTree = "<group>"; };
 		5361AC75284BE25000203D51 /* RestaurantListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListView.swift; sourceTree = "<group>"; };
@@ -43,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		53141F22284FA1CC0036D897 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				53141F23284FA1E10036D897 /* UIColor+Ext.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		5361AC67284BE25000203D51 = {
 			isa = PBXGroup;
 			children = (
@@ -62,11 +72,12 @@
 		5361AC72284BE25000203D51 /* FoodPin */ = {
 			isa = PBXGroup;
 			children = (
-				5391170A284E9570000B8B41 /* Info.plist */,
 				5361AC73284BE25000203D51 /* FoodPinApp.swift */,
 				5389A526284BF36E00D0DB47 /* Model */,
 				538B66F7284C34F600B22A54 /* View */,
 				538B66F8284C34FD00B22A54 /* Resources */,
+				53141F22284FA1CC0036D897 /* Extension */,
+				5391170A284E9570000B8B41 /* Info.plist */,
 				5361AC79284BE25200203D51 /* Preview Content */,
 			);
 			path = FoodPin;
@@ -191,6 +202,7 @@
 				5361AC76284BE25000203D51 /* RestaurantListView.swift in Sources */,
 				53D75154284D07E40034F19B /* RestaurantDetailView.swift in Sources */,
 				53D75152284D03A20034F19B /* ActivityView.swift in Sources */,
+				53141F24284FA1E10036D897 /* UIColor+Ext.swift in Sources */,
 				5361AC74284BE25000203D51 /* FoodPinApp.swift in Sources */,
 				5389A528284BF37600D0DB47 /* Restaurant.swift in Sources */,
 			);

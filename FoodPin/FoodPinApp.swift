@@ -13,12 +13,12 @@ struct FoodPinApp: App {
         let navigationBarAppearance = UINavigationBarAppearance()
         
         navigationBarAppearance.largeTitleTextAttributes = [
-            .foregroundColor: UIColor.systemRed,
+            .foregroundColor: UIColor(named: "NavigationBarTitle")!,
             .font: UIFont(name: "ArialRoundedMTBold", size: 35)!
         ]
         
         navigationBarAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor.systemRed,
+            .foregroundColor: UIColor(named: "NavigationBarTitle")!,
             .font: UIFont(name: "ArialRoundedMTBold", size: 20)!
         ]
         
@@ -34,6 +34,7 @@ struct FoodPinApp: App {
     var body: some Scene {
         WindowGroup {
             RestaurantListView()
+                .preferredColorScheme(.dark)
         }
     }
 }

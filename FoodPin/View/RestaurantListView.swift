@@ -210,6 +210,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         RestaurantListView()
             .preferredColorScheme(.dark)
+            //.environment(\.dynamicTypeSize, .xLarge)
             .previewDevice(PreviewDevice(rawValue: "iPhone 11"))
             .previewDisplayName("iPhone 11")
     }
