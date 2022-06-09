@@ -112,12 +112,10 @@ struct RestaurantDetailView: View {
                 }
             }
         }
-        .overlay(
-            self.showPreview ? ZStack {
-                ReviewView(restaurant: restaurant)
-                    .navigationBarHidden(true)
-            } : nil
-        )
+        .popover(isPresented: $showPreview) {
+            ReviewView(restaurant: restaurant)
+                .navigationBarHidden(true)
+        }
     }
 }
 

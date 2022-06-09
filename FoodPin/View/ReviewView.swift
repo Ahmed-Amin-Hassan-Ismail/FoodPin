@@ -12,7 +12,7 @@ struct ReviewView: View {
     //MARK: - Variables
     var restaurant: Restaurant
     @Environment (\.dismiss) var dismiss
-    @State private var showPreview: Bool = false
+    @State private var ShowRating: Bool = false
     
     var body: some View {
         ZStack {
@@ -33,7 +33,9 @@ struct ReviewView: View {
                 
                 VStack {
                     Button {
-                        dismiss()
+                        withAnimation(.easeOut(duration: 2)) {
+                            self.dismiss()
+                        }
                     } label: {
                         Image(systemName: "xmark")
                             .font(.system(size: 30.0))
@@ -53,8 +55,14 @@ struct ReviewView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                     }
+                    .opacity(ShowRating ? 1.0 : 0.0)
+                    .offset(x: ShowRating ? 0 : 1000)
+                    .animation(.easeOut.delay(Double(Rating.allCases.firstIndex(of: rating)!) * 0.2), value: ShowRating)
                 }
             }
+        }
+        .onAppear {
+            ShowRating.toggle()
         }
     }
 }
