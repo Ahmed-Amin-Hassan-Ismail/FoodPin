@@ -15,6 +15,7 @@
 		5389A528284BF37600D0DB47 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5389A527284BF37600D0DB47 /* Restaurant.swift */; };
 		53911708284E920C000B8B41 /* Nunito-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53911706284E920C000B8B41 /* Nunito-Italic-VariableFont_wght.ttf */; };
 		53911709284E920C000B8B41 /* Nunito-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53911707284E920C000B8B41 /* Nunito-VariableFont_wght.ttf */; };
+		539B120728513FC400C0EAD0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539B120628513FC400C0EAD0 /* MapView.swift */; };
 		53D75152284D03A20034F19B /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D75151284D03A20034F19B /* ActivityView.swift */; };
 		53D75154284D07E40034F19B /* RestaurantDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D75153284D07E40034F19B /* RestaurantDetailView.swift */; };
 /* End PBXBuildFile section */
@@ -30,6 +31,7 @@
 		53911706284E920C000B8B41 /* Nunito-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		53911707284E920C000B8B41 /* Nunito-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		5391170A284E9570000B8B41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		539B120628513FC400C0EAD0 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		53D75151284D03A20034F19B /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		53D75153284D07E40034F19B /* RestaurantDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,6 +106,7 @@
 			children = (
 				5361AC75284BE25000203D51 /* RestaurantListView.swift */,
 				53D75153284D07E40034F19B /* RestaurantDetailView.swift */,
+				539B120628513FC400C0EAD0 /* MapView.swift */,
 				53D75151284D03A20034F19B /* ActivityView.swift */,
 			);
 			path = View;
@@ -199,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				539B120728513FC400C0EAD0 /* MapView.swift in Sources */,
 				5361AC76284BE25000203D51 /* RestaurantListView.swift in Sources */,
 				53D75154284D07E40034F19B /* RestaurantDetailView.swift in Sources */,
 				53D75152284D03A20034F19B /* ActivityView.swift in Sources */,

@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct RestaurantDetailView: View {
     // MARK: - Variables
     var restaurant: Restaurant
     @Environment(\.dismiss) var dismiss
+    @State private var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 40.75773, longitude: -73.985708),
+        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+    
     
     var body: some View {
         ScrollView {
@@ -67,6 +72,16 @@ struct RestaurantDetailView: View {
                 }
                 .padding(.horizontal)
                 
+                NavigationLink {
+                    MapView(location: restaurant.location)
+                        .edgesIgnoringSafeArea(.all)
+                } label: {
+                    MapView(location: restaurant.location)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                        .frame(height: 200, alignment: .center)
+                        .cornerRadius(20)
+                        .padding()
+                }                
             }
         }
         .ignoresSafeArea()
@@ -78,11 +93,8 @@ struct RestaurantDetailView: View {
                 } label: {
                     Text("\(Image(systemName: "chevron.left"))")
                 }
-
             }
         }
-
-        
     }
 }
 
