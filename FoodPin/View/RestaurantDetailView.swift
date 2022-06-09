@@ -12,9 +12,11 @@ struct RestaurantDetailView: View {
     // MARK: - Variables
     var restaurant: Restaurant
     @Environment(\.dismiss) var dismiss
+    @State private var showPreview: Bool = false
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 40.75773, longitude: -73.985708),
         span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+    
     
     
     var body: some View {
@@ -81,7 +83,22 @@ struct RestaurantDetailView: View {
                         .frame(height: 200, alignment: .center)
                         .cornerRadius(20)
                         .padding()
-                }                
+                }
+                
+                Button  {
+                    self.showPreview.toggle()
+                } label: {
+                    Text("Rate it")
+                        .font(.system(.headline, design: .rounded))
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                }
+                .tint(Color("NavigationBarTitle"))
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.roundedRectangle(radius: 25))
+                .controlSize(.large)
+                .padding(.horizontal)
+                .padding(.bottom, 20)
+
             }
         }
         .ignoresSafeArea()
@@ -95,6 +112,12 @@ struct RestaurantDetailView: View {
                 }
             }
         }
+        .overlay(
+            self.showPreview ? ZStack {
+                ReviewView(restaurant: restaurant)
+                    .navigationBarHidden(true)
+            } : nil
+        )
     }
 }
 
