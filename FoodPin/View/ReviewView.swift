@@ -11,7 +11,7 @@ struct ReviewView: View {
 
     //MARK: - Variables
     var restaurant: Restaurant
-    @Environment (\.dismiss) var dismiss
+    @Binding var isDisplaying: Bool
     @State private var ShowRating: Bool = false
     
     var body: some View {
@@ -28,13 +28,14 @@ struct ReviewView: View {
                 .opacity(0.6)
                 .background(.ultraThinMaterial)
                 .ignoresSafeArea()
+            
             HStack {
                 Spacer()
                 
                 VStack {
                     Button {
                         withAnimation(.easeOut(duration: 2)) {
-                            self.dismiss()
+                            self.isDisplaying = false
                         }
                     } label: {
                         Image(systemName: "xmark")
@@ -58,6 +59,10 @@ struct ReviewView: View {
                     .opacity(ShowRating ? 1.0 : 0.0)
                     .offset(x: ShowRating ? 0 : 1000)
                     .animation(.easeOut.delay(Double(Rating.allCases.firstIndex(of: rating)!) * 0.2), value: ShowRating)
+                    .onTapGesture {
+                        self.restaurant.rating = rating
+                        self.isDisplaying = false
+                    }
                 }
             }
         }
@@ -69,6 +74,6 @@ struct ReviewView: View {
 
 struct ReviewView_Previews: PreviewProvider {
     static var previews: some View {
-        ReviewView(restaurant: Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop", location: "G/F, 72 Po Hing Fong, Sheung Wan, Hong Kong", phone: "232-923423", description: "Searching for great breakfast eateries and coffee? This place is for you. We open at 6:30 every morning, and close at 9 PM. We offer espresso and espresso based drink, such as capuccino, cafe latte, piccolo and many more. Come over and enjoy a great meal.", image: "cafedeadend", isFavorite: true))
+        ReviewView(restaurant: Restaurant(name: "Cafe Deadend", type: "Coffee & Tea Shop", location: "G/F, 72 Po Hing Fong, Sheung Wan, Hong Kong", phone: "232-923423", description: "Searching for great breakfast eateries and coffee? This place is for you. We open at 6:30 every morning, and close at 9 PM. We offer espresso and espresso based drink, such as capuccino, cafe latte, piccolo and many more. Come over and enjoy a great meal.", image: "cafedeadend", isFavorite: true), isDisplaying: .constant(true))
     }
 }

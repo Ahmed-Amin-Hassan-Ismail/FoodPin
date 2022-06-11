@@ -11,6 +11,7 @@ import MapKit
 struct MapView: View {
     //MARK: - Variable
     var location: String = ""
+    var  interactionModes: MapInteractionModes = .all
     
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 51.510357, longitude: -0.116773),
@@ -20,7 +21,7 @@ struct MapView: View {
     
     
     var body: some View {
-        Map(coordinateRegion: $region, interactionModes: [.all], annotationItems: [annotatedItem]) { item in
+        Map(coordinateRegion: $region, interactionModes: interactionModes, annotationItems: [annotatedItem]) { item in
             MapMarker(coordinate: item.coordinates, tint: .red)
             
         }

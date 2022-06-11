@@ -28,29 +28,41 @@ struct RestaurantDetailView: View {
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                     .frame(height: 445, alignment: .center)
                     .overlay(
-                    VStack {
-                        Image(systemName: restaurant.isFavorite ? "heart.fill" : "heart")
-                            .frame(minWidth: 0, maxWidth: .infinity, minHeight:0, maxHeight: .infinity, alignment: .topTrailing)
-                            .padding()
-                            .font(.system(size: 35))
-                            .foregroundColor(restaurant.isFavorite ? .yellow : .white)
-                            .padding(.top, 40)
-                        
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text(restaurant.name)
-                                .font(.custom("Nunito-Regular", size: 35, relativeTo: .largeTitle))
-                                .bold()
+                        VStack {
+                            Image(systemName: restaurant.isFavorite ? "heart.fill" : "heart")
+                                .frame(minWidth: 0, maxWidth: .infinity, minHeight:0, maxHeight: .infinity, alignment: .topTrailing)
+                                .padding()
+                                .font(.system(size: 35))
+                                .foregroundColor(restaurant.isFavorite ? .yellow : .white)
+                                .padding(.top, 40)
                             
-                            Text(restaurant.type)
-                                .font(.system(.headline, design: .rounded))
-                                .padding(.all, 5)
-                                .background(.black)
+                            HStack {
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text(restaurant.name)
+                                        .font(.custom("Nunito-Regular", size: 35, relativeTo: .largeTitle))
+                                        .bold()
+                                    
+                                    Text(restaurant.type)
+                                        .font(.system(.headline, design: .rounded))
+                                        .padding(.all, 5)
+                                        .background(.black)
+                                }
+                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .bottomLeading)
+                                .foregroundColor(.white)
+                                .padding()
+                                
+                                if let rating = restaurant.rating, !showPreview {
+                                    Image(rating.image)
+                                        .resizable()
+                                        .frame(width: 60, height: 60, alignment: .center)
+                                        .padding(.top, 120)
+                                        .padding(.trailing)
+                                        .transition(.scale)
+                                }
+                            }
+                            .animation(.spring(response: 0.2, dampingFraction: 0.3, blendDuration: 0.3), value: restaurant.rating)
                         }
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .bottomLeading)
-                        .foregroundColor(.white)
-                        .padding()
-                    }
-                )
+                    )
                 Text(restaurant.description)
                     .padding()
                 
@@ -78,7 +90,7 @@ struct RestaurantDetailView: View {
                     MapView(location: restaurant.location)
                         .edgesIgnoringSafeArea(.all)
                 } label: {
-                    MapView(location: restaurant.location)
+                    MapView(location: restaurant.location, interactionModes: .zoom)
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                         .frame(height: 200, alignment: .center)
                         .cornerRadius(20)
@@ -98,7 +110,7 @@ struct RestaurantDetailView: View {
                 .controlSize(.large)
                 .padding(.horizontal)
                 .padding(.bottom, 20)
-
+                
             }
         }
         .ignoresSafeArea()
@@ -112,10 +124,15 @@ struct RestaurantDetailView: View {
                 }
             }
         }
-        .popover(isPresented: $showPreview) {
-            ReviewView(restaurant: restaurant)
-                .navigationBarHidden(true)
-        }
+        .overlay(
+            self.showPreview ?
+            ZStack {
+                ReviewView(restaurant: restaurant, isDisplaying: $showPreview)
+                    .navigationBarHidden(true)
+            }
+            
+            : nil
+        )
     }
 }
 
