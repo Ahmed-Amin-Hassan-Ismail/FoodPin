@@ -33,7 +33,7 @@ struct RestaurantListView: View {
         Restaurant(name: "CASK Pub and Kitchen", type: "Thai", location: "22 Charlwood Street London SW1V 2DY Pimlico", phone: "432-344050", description: "With kitchen serving gourmet burgers. We offer food every day of the week, Monday through to Sunday. Join us every Sunday from 4:30 – 7:30pm for live acoustic music!", image: "cask", isFavorite: false)
     ]
     
-    
+    @State private var showNewRestaurant = false
     
     //MARK: - Body
     var body: some View {
@@ -56,8 +56,21 @@ struct RestaurantListView: View {
             .listStyle(.plain)
             .navigationTitle("Restaurant")
             .navigationBarTitleDisplayMode(.automatic)
+            .sheet(isPresented: $showNewRestaurant, content: {
+                NewRestaurantView()
+            })
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        self.showNewRestaurant = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .accentColor(.primary)
+                }
+            }
         }
-        .accentColor(.white)
+       .accentColor(.white)
     }
 }
 
