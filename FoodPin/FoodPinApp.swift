@@ -36,7 +36,7 @@ struct FoodPinApp: App {
         WindowGroup {
             RestaurantListView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .preferredColorScheme(.dark)
+                .preferredColorScheme(.light)
         }
     }
 }

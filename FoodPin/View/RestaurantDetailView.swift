@@ -10,8 +10,9 @@ import MapKit
 
 struct RestaurantDetailView: View {
     // MARK: - Variables
-    var restaurant: Restaurant
+    @ObservedObject var restaurant: Restaurant
     @Environment(\.dismiss) var dismiss
+    @Environment(\.managedObjectContext) var context
     @State private var showPreview: Bool = false
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 40.75773, longitude: -73.985708),
@@ -22,7 +23,7 @@ struct RestaurantDetailView: View {
     var body: some View {
         ScrollView {
             VStack {
-                Image(restaurant.image)
+                Image(uiImage: UIImage(data: restaurant.image)!)
                     .resizable()
                     .scaledToFill()
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
@@ -115,6 +116,11 @@ struct RestaurantDetailView: View {
         }
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
+        .onChange(of: restaurant, perform: { newValue in
+            if self.context.hasChanges {
+                try? self.context.save()
+            }
+        })
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
@@ -138,8 +144,10 @@ struct RestaurantDetailView: View {
 
 struct RestaurantDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        RestaurantDetailView(restaurant: Restaurant(name: "Cafe Deadend",type: "Coffee & Tea Shop", location: "G/F, 72 Po Hing Fong, Sheung Wan, Hong Kong", phone: "232-923423", description: "Searching for great breakfast eateries and coffee? This place is for you. We open at 6:30 every morning, and close at 9 PM. We offer espresso and espresso based drink, such as capuccino, cafe latte, piccolo and many more. Come over and enjoy a great meal.", image: "cafedeadend", isFavorite: false))
-            .preferredColorScheme(.dark)
-            .accentColor(.white)
+        NavigationView {
+            RestaurantDetailView(restaurant: (PersistenceController.testData?.first)!)
+                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        }
+        .accentColor(.white)
     }
 }

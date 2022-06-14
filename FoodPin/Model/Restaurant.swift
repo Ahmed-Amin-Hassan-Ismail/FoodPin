@@ -5,7 +5,6 @@
 //  Created by Ahmed Amin on 04/06/2022.
 //
 
-import Foundation
 import CoreData
 import Combine
 
@@ -19,18 +18,6 @@ public class Restaurant: NSManagedObject {
     @NSManaged public var image: Data
     @NSManaged public var isFavorite: Bool
     @NSManaged public var ratingText: String?
-    
-    init(name: String, type: String, location: String, phone: String, summary: String, image: Data, isFavorite: Bool = false, ratingText: String? = nil) {
-        
-        self.name = name
-        self.type = type
-        self.location = location
-        self.phone = phone
-        self.summary = summary
-        self.image = image
-        self.isFavorite = isFavorite
-        self.ratingText = ratingText
-    }
     
     var rating: Rating? {
         get {
