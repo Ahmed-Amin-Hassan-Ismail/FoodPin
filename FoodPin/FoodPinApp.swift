@@ -32,8 +32,10 @@ struct FoodPinApp: App {
         
     }
     var body: some Scene {
+        let persistenceController = PersistenceController.shared
         WindowGroup {
             RestaurantListView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .preferredColorScheme(.dark)
         }
     }
