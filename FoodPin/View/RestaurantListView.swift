@@ -33,9 +33,11 @@ struct RestaurantListView: View {
         Restaurant(name: "CASK Pub and Kitchen", type: "Thai", location: "22 Charlwood Street London SW1V 2DY Pimlico", phone: "432-344050", description: "With kitchen serving gourmet burgers. We offer food every day of the week, Monday through to Sunday. Join us every Sunday from 4:30 – 7:30pm for live acoustic music!", image: "cask", isFavorite: false)
     ]
     
+    @State private var showWalkthrough = false
     @State private var showNewRestaurant = false
     @State private var searchText: String = ""
     @State private var restaurantResults: [Restaurant] = []
+    @AppStorage("hasViewedWalkthrough") var hasViewedWalkthrough = false
     
     //MARK: - Body
     var body: some View {
@@ -59,9 +61,6 @@ struct RestaurantListView: View {
             .listStyle(.plain)
             .navigationTitle("Restaurant")
             .navigationBarTitleDisplayMode(.automatic)
-            .sheet(isPresented: $showNewRestaurant, content: {
-                NewRestaurantView()
-            })
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -72,16 +71,25 @@ struct RestaurantListView: View {
                     .accentColor(.primary)
                 }
             }
-            .onChange(of: searchText, perform: { searchText in
-                self.restaurantResults = restaurants.filter({ $0.name.contains(searchText)}) + restaurants.filter({$0.location.contains(searchText)})
-            })
         }
+        .accentColor(.white)
         .searchable(text: $searchText, prompt: "Search restaurants...") {
             // search suggestions
             //Text("Thai").searchCompletion("Thai")
             //Text("Cafe").searchCompletion("Cafe")
         }
-        .accentColor(.white)
+        .onChange(of: searchText, perform: { searchText in
+            self.restaurantResults = restaurants.filter({ $0.name.contains(searchText)}) + restaurants.filter({$0.location.contains(searchText)})
+        })
+        .sheet(isPresented: $showNewRestaurant, content: {
+            NewRestaurantView()
+        })
+        .sheet(isPresented: $showWalkthrough, content: {
+            TutorialView()
+        })
+        .onAppear {
+            self.showWalkthrough = self.hasViewedWalkthrough ? false : true
+        }
     }
 }
 
