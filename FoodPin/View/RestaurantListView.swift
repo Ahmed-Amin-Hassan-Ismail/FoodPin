@@ -34,12 +34,15 @@ struct RestaurantListView: View {
     ]
     
     @State private var showNewRestaurant = false
+    @State private var searchText: String = ""
+    @State private var restaurantResults: [Restaurant] = []
     
     //MARK: - Body
     var body: some View {
         NavigationView {
             List {
-                ForEach(restaurants.indices, id: \.self) { index in
+                ForEach(searchText.isEmpty ? restaurants.indices : restaurantResults.indices,
+                        id: \.self) { index in
                     ZStack(alignment: .leading) {
                         NavigationLink(destination: RestaurantDetailView(restaurant: restaurants[index])) {
                             EmptyView()
@@ -48,10 +51,10 @@ struct RestaurantListView: View {
                         BasicTextImageRow(restaurant: $restaurants[index])
                     }
                 }
-                .onDelete(perform: { indexSet in
-                    restaurants.remove(atOffsets: indexSet)
-                })
-                .listRowSeparator(.hidden)
+                        .onDelete(perform: { indexSet in
+                            restaurants.remove(atOffsets: indexSet)
+                        })
+                        .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
             .navigationTitle("Restaurant")
@@ -69,8 +72,16 @@ struct RestaurantListView: View {
                     .accentColor(.primary)
                 }
             }
+            .onChange(of: searchText, perform: { searchText in
+                self.restaurantResults = restaurants.filter({ $0.name.contains(searchText)}) + restaurants.filter({$0.location.contains(searchText)})
+            })
         }
-       .accentColor(.white)
+        .searchable(text: $searchText, prompt: "Search restaurants...") {
+            // search suggestions
+            //Text("Thai").searchCompletion("Thai")
+            //Text("Cafe").searchCompletion("Cafe")
+        }
+        .accentColor(.white)
     }
 }
 
@@ -100,7 +111,7 @@ struct BasicTextImageRow: View {
                     .font(.system(.subheadline, design: .rounded))
                     .foregroundColor(.gray)
                 
-            }            
+            }
             if restaurant.isFavorite {
                 Spacer()
                 Image(systemName: "heart.fill")
@@ -223,7 +234,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         RestaurantListView()
             .preferredColorScheme(.dark)
-            //.environment(\.dynamicTypeSize, .xLarge)
+        //.environment(\.dynamicTypeSize, .xLarge)
             .previewDevice(PreviewDevice(rawValue: "iPhone 11"))
             .previewDisplayName("iPhone 11")
     }
