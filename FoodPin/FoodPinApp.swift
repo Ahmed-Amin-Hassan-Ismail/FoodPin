@@ -27,15 +27,15 @@ struct FoodPinApp: App {
             navigationBarAppearance.backgroundEffect = .none
             navigationBarAppearance.shadowColor = .clear
             
-            //UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+            UINavigationBar.appearance().standardAppearance = navigationBarAppearance
             UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
-            //UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+            UINavigationBar.appearance().compactAppearance = navigationBarAppearance
         }
         
     }
     var body: some Scene {
         WindowGroup {
-            RestaurantListView()
+            MainView()
         }
     }
 }
